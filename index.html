@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Corso JavaScript</title>
+</head>
+<body>
+    <h1>TEST</h1>
+    <input type="text" id="username" placeholder="Scrivi il tuo nome">
+
+    <script type="text/javascript">
+        
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const inp = document.getElementById('username');
+
+            inp.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    invia(this.value);
+                }
+            });
+
+            function invia(username) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/test.php');
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send("username=" + encodeURIComponent(username));
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        console.log(this.responseText);
+                    } else {
+                        console.error("Errore nella richiesta: " + xhr.status);
+                    }
+                };
+            }
+        });
+    </script>
+</body>
+</html>
